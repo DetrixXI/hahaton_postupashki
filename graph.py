@@ -32,9 +32,10 @@ for ind, course in enumerate(data['Курс'].unique()):
     col = ind % 4
     ax = axes[row, col]
     window = len(temp['course_revenue'])
-    ax.plot(temp['date'].dt.strftime('%d.%m'), temp['course_revenue'].rolling(window=window//5, center=True).mean(), color='blue', label='MA')
-    ax.plot(temp['date'].dt.strftime('%d.%m'), savgol_filter(temp['course_revenue'], window_length=min(window, 5), polyorder=2), color='red', label='SavGol')
-    ax.plot(temp['date'].dt.strftime('%d.%m'), temp['course_revenue'], color='green', label='raw')
+    # тут сглаживание 2шт., и голые данные, п.с. савгол берет окно, внутри полином.апр. и для точки берется значение пол. в ней самой
+    ax.plot(temp['date'].dt.strftime('%d.%m'), temp['course_revenue'].rolling(window=window//5, center=True).mean(), color='blue', label='MA') # скользящее среднее
+    ax.plot(temp['date'].dt.strftime('%d.%m'), savgol_filter(temp['course_revenue'], window_length=min(window, 5), polyorder=2), color='red', label='SavGol') # фильтр савгол
+    ax.plot(temp['date'].dt.strftime('%d.%m'), temp['course_revenue'], color='green', label='raw') # сырые данные 
     ax.legend()
     ax.set_title(course)
 
