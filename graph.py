@@ -8,8 +8,9 @@ temp = data
 data[['date', 'time']] = data['Время'].str.split(' ', expand = True)
 del data['Время']
 data['date'] = pd.to_datetime(data['date'], format='%d.%m.%Y')
+data['time'] = pd.to_datetime(data['time'], format='%H:%M:%S')
 
-
+input(data.head())
 data['Сумма'] =  (
     data['Сумма']
     .str.replace(r'\s+', '', regex=True)
@@ -49,5 +50,8 @@ plt.show()
 fig.savefig('proc_data/total_course_revenue_by_dates.png')
 plt.close(fig)
 
-# print(data)
+
+
+
+
 
