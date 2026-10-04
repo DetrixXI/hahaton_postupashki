@@ -3,6 +3,8 @@ from copy import deepcopy
 
 data = pd.read_csv('raw_data/base.csv')
 
+print(123)
+
 data['Сумма'] =  (
     data['Сумма']
     .str.replace(r'\s+', '', regex=True)
